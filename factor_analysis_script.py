@@ -1,5 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import sys
+
 from sklearn.decomposition import FactorAnalysis,PCA
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
@@ -374,21 +376,24 @@ def get_data(filename='nmtwins.sas7bdat'):
 
 if __name__ == "__main__":
 
-    #header, data = get_data('nmtwins.sas7bdat'):
-    #header, data = get_data('nmtest_twins.sas7bdat')
-    header, data = get_data('wiscsem.sas7bdat')
+    if len(sys.argv) < 2:
+        raise ValueError('Filename nos passed as an input parameter...')
+
+    filename = sys.argv[1]
+
+    header, data = get_data(filename)
     labels = data[:,0]
     data = data[:,1:]
     real_header = header[1:]
 
     transformed_data,components = fit_factor_analysis(percentage=0.8)
     labels_components = clusterize_data(components.T,k=3)
-    plot(components.T,real_header,labels_components,force_2D=True)
+    plot(components.T,real_header,labels_components)
 
     components_r = rotate(components.T)
-    labels_components_r = clusterize_data(components_r,k=3,algorithm='hierarchical-average')
-    plot(components_r,real_header,labels_components_r,force_2D=True)
+    labels_components_r = clusterize_data(components_r,k=3)
+    plot(components_r,real_header,labels_components_r)
 
-    labels_transformed = clusterize_data(transformed_data,algorithm='hierarchical-average')
-    plot(transformed_data,[],labels_transformed,force_2D=True)
+    labels_transformed = clusterize_data(transformed_data)
+    plot(transformed_data,[],labels_transformed)
 
