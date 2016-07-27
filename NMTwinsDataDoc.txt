@@ -1,0 +1,36 @@
+National Merit Twin Study: each case is an individual
+Documentation - see Loehlin,J.C. & Nichols, R.C. (1976). Genes,
+	Environment and Personality. Austin TX: University
+	of Texas Press.
+
+The variables on this data file are:
+	Pairnum		Twin pair number 
+	Sex
+	Zygosity
+	Moed			Mother's educational level
+	Faed			Father's educational level
+	Finc			Family income level 
+	English		NMSQT Subtest: English
+	Math			NMSQT Subtest: Mathematics
+	SocSci		NMSQT Subtest: Social Science
+	NatSci		NMSQT Subtest: Natural Science
+	Vocab			NMSQT Subtest: Vocabulary
+
+the following formats show the variable values:
+
+proc format;
+   value sexfmt 1='male' 2='female';
+   value zygfmt 1='identical' 2='fraternal';
+   value edfmt 1='<= 8th grade'
+               2='part high school'
+               3='high school grad'
+               4='part college'
+               5='college grad'
+               6='graduate degree';
+   value incfmt 1='< $5000'
+                2='$5000 to $7499'
+                3='$7500 to $9999'
+                4='$10000 to $14999'
+                5='$15000 to $19999'
+                6='$20000 to $24999'
+                7='>= $25000';
